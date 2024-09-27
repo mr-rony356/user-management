@@ -3,6 +3,7 @@
 import { getSheetData } from "@/app/actions/gl-sheet.actions";
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
+import Script from "next/script";
 
 export default function Page() {
   const [response, setResponse] = useState<string[][] | null>(null);
@@ -67,7 +68,7 @@ export default function Page() {
         </h1>
 
         <h2 className="text-xl font-semibold text-gray-700 mb-6">
-          Google Sheets Data 
+          Google Sheets Data
         </h2>
 
         {response && response.length > 0 ? (
@@ -103,12 +104,8 @@ export default function Page() {
           </div>
         ) : (
           <div>
-          <p className="text-gray-600">
-           Loading data .....
-          </p>
-
-            </div>
-
+            <p className="text-gray-600">Loading data .....</p>
+          </div>
         )}
         <button
           className="bg-red-500 text-white px-4  py-2 rounded-md hover:bg-red-600 mt-4"
@@ -117,6 +114,35 @@ export default function Page() {
           Log Out
         </button>
       </div>
+      {/* Adding the BOT9 script safely */}
+      <Script
+        id="bot9-data"
+        strategy="afterInteractive"
+        dangerouslySetInnerHTML={{
+          __html: `
+              var BOT9_DATA = {
+                bot9Id: "b0908786-8259-4fe7-b149-38c4d7345238",
+                // user: {
+                //   userId: '<unique_user_id>',
+                //   emailId: '<user_email>',
+                //   name: '<user_name>',
+                //   customAttributes: {
+                //     Field1: '',
+                //     Field2: '',
+                //     Field3: '',
+                //   }
+                // }
+              };
+            `,
+        }}
+      />
+
+      {/* Loading the bot script */}
+      <Script
+        id="bot9-script"
+        src="https://sdk.chatwidget.in/bot.js"
+        strategy="afterInteractive"
+      />
     </div>
   );
 }

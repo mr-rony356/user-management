@@ -122,12 +122,12 @@ const LoginPage = () => {
           </div>
         ) : (
           <div>
-            <label className="block text-sm font-medium mb-2">
+            <label className="block text-lg  mb-2 text-black font-bold">
               Verification Code
             </label>
             <input
               type="text"
-              className="block text-black w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 mb-4"
+              className="block border border-black text-black w-full rounded-md p-4 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 mb-4"
               value={verificationCode}
               onChange={(e) => setVerificationCode(e.target.value)}
               placeholder="Enter the 6-digit code"
