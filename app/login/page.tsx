@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 
 // You might want to move this to a separate file
 const countries = [
-  { name: "Canada", code: "+1" },
+  { name: "CAD", code: "+1" },
   { name: "UK", code: "+44" },
   { name: "India", code: "+91" },
   { name: "BD", code: "+880" },
@@ -21,7 +21,7 @@ const LoginPage = () => {
 
   useEffect(() => {
     const checkSession = async () => {
-      const res = await fetch("/api/auth");
+      const res = await fetch("/api/auths");
       const data = await res.json();
       if (data.isLoggedIn) router.push("/");
     };
@@ -66,7 +66,7 @@ const LoginPage = () => {
 
       const loginData = await loginResponse.json();
 
-      if (loginData.success) {
+      if (!loginData.success) {
         router.push("/");
       } else {
         console.error("Login failed");
@@ -79,23 +79,20 @@ const LoginPage = () => {
   };
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-gradient-to-r from-blue-100 to-purple-100">
-      <div className="bg-white p-8 rounded-lg shadow-lg w-full max-w-md">
-        <h1 className="text-3xl font-bold mb-6 text-center text-gray-800">
-          Welcome Back
+    <div className="flex items-center justify-center min-h-screen bg-gray-100">
+      <div className="bg-white p-6 rounded-lg shadow-md w-full max-w-sm">
+        <h1 className="text-2xl font-semibold text-center text-gray-800 mb-4">
+          Verify Your Number Please 
         </h1>
-        <p className="text-center text-gray-600 mb-8">
-          Please Enter Your Contact Number to continue
+        <p className="text-center text-sm text-gray-600 mb-6">
+          Enter your contact details to proceed.
         </p>
 
         {!isCodeSent ? (
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">
-              Phone Number
-            </label>
-            <div className="flex mb-4">
+          <div className="space-y-4">
+            <div className="flex">
               <select
-                className="block w-[25%] rounded-l-md border-gray-300 text-black shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+                className="w-1/3 border text-black font-bold border-gray-300 rounded-l-md text-sm focus:ring focus:ring-blue-200 focus:ring-opacity-50"
                 value={countryCode}
                 onChange={(e) => setCountryCode(e.target.value)}
               >
@@ -107,7 +104,7 @@ const LoginPage = () => {
               </select>
               <input
                 type="tel"
-                className="block w-2/3 rounded-r-md  border-gray-300 text-black shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+                className="w-2/3 border border-l-0 border-gray-300 rounded-r-md text-sm p-2 focus:ring focus:ring-blue-200 focus:ring-opacity-50"
                 value={phoneNumber}
                 onChange={(e) => setPhoneNumber(e.target.value)}
                 placeholder="Phone number"
@@ -115,36 +112,33 @@ const LoginPage = () => {
             </div>
             <button
               onClick={sendVerificationCode}
-              className="w-full bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 transition duration-200"
+              className="w-full bg-blue-600 text-white text-sm py-2 rounded-md hover:bg-blue-700 focus:ring focus:ring-blue-200 focus:ring-opacity-50 transition"
             >
-              Send Verification Code
+              Send Code
             </button>
           </div>
         ) : (
-          <div>
-            <label className="block text-lg  mb-2 text-black font-bold">
-              Verification Code
-            </label>
+          <div className="space-y-4">
             <input
               type="text"
-              className="block border border-black text-black w-full rounded-md p-4 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 mb-4"
+              className="w-full border border-gray-300 rounded-md text-sm p-2 focus:ring focus:ring-green-200 focus:ring-opacity-50"
               value={verificationCode}
               onChange={(e) => setVerificationCode(e.target.value)}
-              placeholder="Enter the 6-digit code"
+              placeholder="Enter verification code"
             />
             <button
               onClick={verifyCode}
-              className="w-full bg-green-500 text-white py-2 px-4 rounded-md hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-opacity-50 transition duration-200"
+              className="w-full bg-green-600 text-white text-sm py-2 rounded-md hover:bg-green-700 focus:ring focus:ring-green-200 focus:ring-opacity-50 transition"
             >
               Verify Code
             </button>
           </div>
         )}
 
-        <p className="mt-6 text-center text-sm text-gray-500">
+        <p className="mt-4 text-center text-xs text-gray-500">
           By continuing, you agree to our{" "}
           <a href="#" className="text-blue-500 hover:underline">
-            Terms of Service
+            Terms
           </a>{" "}
           and{" "}
           <a href="#" className="text-blue-500 hover:underline">
