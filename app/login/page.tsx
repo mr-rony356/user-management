@@ -21,7 +21,7 @@ const LoginPage = () => {
 
   useEffect(() => {
     const checkSession = async () => {
-      const res = await fetch("/api/auths");
+      const res = await fetch("/api/auth");
       const data = await res.json();
       if (data.isLoggedIn) router.push("/");
     };
@@ -92,7 +92,7 @@ const LoginPage = () => {
           <div className="space-y-4">
             <div className="flex">
               <select
-                className="w-1/3 border text-black font-bold border-gray-300 rounded-l-md text-sm focus:ring focus:ring-blue-200 focus:ring-opacity-50"
+                className="w-1/4 border text-black font-bold border-gray-300 rounded-l-md text-sm focus:ring focus:ring-blue-200 focus:ring-opacity-50"
                 value={countryCode}
                 onChange={(e) => setCountryCode(e.target.value)}
               >
@@ -104,7 +104,7 @@ const LoginPage = () => {
               </select>
               <input
                 type="tel"
-                className="w-2/3 border border-l-0 border-gray-300 rounded-r-md text-sm p-2 focus:ring focus:ring-blue-200 focus:ring-opacity-50"
+                className="w-2/3 border border-l-0 border-gray-300 rounded-r-md text-black text-sm p-2 focus:ring font-bold focus:ring-blue-200 focus:ring-opacity-50"
                 value={phoneNumber}
                 onChange={(e) => setPhoneNumber(e.target.value)}
                 placeholder="Phone number"
