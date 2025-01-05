@@ -42,7 +42,7 @@ export default function FrillPage() {
       localStorage.setItem("ssoToken", generatedToken);
 
       // Optionally, navigate to a different page after login
-      window.location.href = "/";
+      window.location.href = `https://startup-founder.frill.co/?ssoToken=${generatedToken}`;
     } catch (err: any) {
       setError(err.message || "An error occurred");
     }
