@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
 import Script from "next/script";
+import { useState } from "react";
 
 
 
@@ -11,6 +12,13 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+    const [ssoToken, setSsoToken] = useState(() => {
+      if (typeof window !== 'undefined') {
+        return localStorage.getItem("ssoToken");
+        
+      }
+      return null;
+    });
   return (
     <html lang="en">
       <body
@@ -24,7 +32,8 @@ export default function RootLayout({
             window.Frill('container', {
               key: '90d54760-b65b-4902-a6c3-b54ca7b96a86',
               // Identify your users (optional)
-              // user: { email: 'email@domain.com', name: 'my user'}
+              ssoToken: '${ssoToken}',
+             
             });
             `
           }}

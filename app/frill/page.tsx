@@ -23,23 +23,26 @@ async function generateFrillToken(user: {
   return data.token;
 }
 
-export default function LoginPage() {
+export default function FrillPage() {
   const [email, setEmail] = useState("");
   const [id, setId] = useState("");
   const [name, setName] = useState("");
-  const [token, setToken] = useState("");
   const [error, setError] = useState("");
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
     setError("");
-    setToken("");
 
     try {
       const user = { email, id, name };
       const generatedToken = await generateFrillToken(user);
-      setToken(generatedToken);
+
+      // Save the token in localStorage
+      localStorage.setItem("ssoToken", generatedToken);
+
+      // Optionally, navigate to a different page after login
+      window.location.href = "/";
     } catch (err: any) {
       setError(err.message || "An error occurred");
     }
@@ -102,16 +105,9 @@ export default function LoginPage() {
             type="submit"
             className="w-full bg-blue-600 text-white py-2 rounded-md hover:bg-blue-700"
           >
-            Generate Token
+            Login and Save Token
           </button>
         </form>
-
-        {token && (
-          <div className="mt-4 p-3 bg-green-100 text-green-700 rounded">
-            <p>Generated Token:</p>
-            <code className="block mt-1 break-words">{token}</code>
-          </div>
-        )}
 
         {error && (
           <div className="mt-4 p-3 bg-red-100 text-red-700 rounded">
