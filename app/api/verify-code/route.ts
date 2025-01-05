@@ -12,12 +12,9 @@ export async function POST(req: Request) {
 
   try {
     // Verify the code
-    const verificationCheck = await client.verify
+    const verificationCheck = await client.verify.v2
       .services(serviceSid)
-      .verificationChecks.create({
-        to: phoneNumber,
-        code: verificationCode,
-      });
+      .verificationChecks.create({ to: phoneNumber, code: verificationCode });
 
     // Check verification status
     if (verificationCheck.status === "approved") {

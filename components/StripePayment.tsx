@@ -14,7 +14,7 @@ function CheckoutForm() {
 
   useEffect(() => {
     // Fetch the client secret from the backend
-    fetch("/api/create-payment-intent", {
+    fetch("/api/create-payment-intents", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
     })

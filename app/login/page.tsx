@@ -65,6 +65,7 @@ const LoginPage = () => {
       });
 
       const loginData = await loginResponse.json();
+      router.push("/");
 
       if (!loginData.success) {
         router.push("/");
@@ -82,7 +83,7 @@ const LoginPage = () => {
     <div className="flex items-center justify-center min-h-screen bg-gray-100">
       <div className="bg-white p-6 rounded-lg shadow-md w-full max-w-sm">
         <h1 className="text-2xl font-semibold text-center text-gray-800 mb-4">
-          Verify Your Number Please 
+          Verify Your Number Please
         </h1>
         <p className="text-center text-sm text-gray-600 mb-6">
           Enter your contact details to proceed.
@@ -128,7 +129,7 @@ const LoginPage = () => {
             />
             <button
               onClick={verifyCode}
-              className="w-full bg-green-600 text-white text-sm py-2 rounded-md hover:bg-green-700 focus:ring focus:ring-green-200 focus:ring-opacity-50 transition"
+              className="w-full bg-green-600 text-black  text-sm py-2 rounded-md hover:bg-green-700 focus:ring focus:ring-green-200 focus:ring-opacity-50 transition"
             >
               Verify Code
             </button>
