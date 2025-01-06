@@ -6,6 +6,7 @@ async function generateFrillToken(user: {
   email: string;
   id: string;
   name: string;
+  avatar: string;
 }) {
   const response = await fetch("/api/generate-frill-token", {
     method: "POST",
@@ -27,6 +28,7 @@ export default function FrillPage() {
   const [email, setEmail] = useState("");
   const [id, setId] = useState("");
   const [name, setName] = useState("");
+  const [avatar, setAvatarUrl] = useState("");
   const [error, setError] = useState("");
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -35,14 +37,14 @@ export default function FrillPage() {
     setError("");
 
     try {
-      const user = { email, id, name };
+      const user = { email, id, name, avatar };
       const generatedToken = await generateFrillToken(user);
 
       // Save the token in localStorage
       localStorage.setItem("ssoToken", generatedToken);
 
       // Optionally, navigate to a different page after login
-      window.location.href = `https://startup-founder.frill.co/?ssoToken=${generatedToken}`;
+      window.location.href = "/";
     } catch (err: any) {
       setError(err.message || "An error occurred");
     }
@@ -51,12 +53,12 @@ export default function FrillPage() {
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-100">
       <div className="bg-white p-6 rounded shadow-md w-full max-w-sm">
-        <h1 className="text-2xl font-semibold mb-4">Frill Login</h1>
+        <h1 className="text-2xl text-black font-semibold mb-4">Frill Login</h1>
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
             <label
               htmlFor="email"
-              className="block text-sm font-medium text-gray-700"
+              className="block text-sm font-medium text-gray-900"
             >
               Email
             </label>
@@ -65,30 +67,14 @@ export default function FrillPage() {
               type="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm px-3 py-2"
-              required
-            />
-          </div>
-          <div>
-            <label
-              htmlFor="id"
-              className="block text-sm font-medium text-gray-700"
-            >
-              User ID
-            </label>
-            <input
-              id="id"
-              type="text"
-              value={id}
-              onChange={(e) => setId(e.target.value)}
-              className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm px-3 py-2"
+              className="mt-1 block text-black w-full border border-gray-300 rounded-md shadow-sm px-3 py-2"
               required
             />
           </div>
           <div>
             <label
               htmlFor="name"
-              className="block text-sm font-medium text-gray-700"
+              className="block text-sm font-medium text-gray-900"
             >
               Name
             </label>
@@ -97,8 +83,24 @@ export default function FrillPage() {
               type="text"
               value={name}
               onChange={(e) => setName(e.target.value)}
-              className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm px-3 py-2"
+              className="mt-1 block w-full border text-black border-gray-300 rounded-md shadow-sm px-3 py-2"
               required
+            />
+          </div>
+          <div>
+            <label
+              htmlFor="avatar"
+              className="block text-sm font-medium text-gray-900"
+            >
+              Avatar URL
+            </label>
+            <input
+              id="avatar"
+              type="url"
+              value={avatar}
+              onChange={(e) => setAvatarUrl(e.target.value)}
+              className="mt-1 block w-full border text-black border-gray-300 rounded-md shadow-sm px-3 py-2"
+              placeholder="https://example.com/avatar.jpg"
             />
           </div>
           <button
