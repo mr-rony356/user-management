@@ -33,7 +33,7 @@ export default function FrillPage() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-
+setId(Math.floor(100000000000 + Math.random() * 900000000000).toString());
     setError("");
 
     try {
@@ -44,7 +44,7 @@ export default function FrillPage() {
       localStorage.setItem("ssoToken", generatedToken);
 
       // Optionally, navigate to a different page after login
-      window.location.href = "/";
+      window.location.href = `corporate.scladsfast.com/?ssoToken=${generatedToken}`;
     } catch (err: any) {
       setError(err.message || "An error occurred");
     }
@@ -87,27 +87,11 @@ export default function FrillPage() {
               required
             />
           </div>
-          <div>
-            <label
-              htmlFor="avatar"
-              className="block text-sm font-medium text-gray-900"
-            >
-              Avatar URL
-            </label>
-            <input
-              id="avatar"
-              type="url"
-              value={avatar}
-              onChange={(e) => setAvatarUrl(e.target.value)}
-              className="mt-1 block w-full border text-black border-gray-300 rounded-md shadow-sm px-3 py-2"
-              placeholder="https://example.com/avatar.jpg"
-            />
-          </div>
           <button
             type="submit"
             className="w-full bg-blue-600 text-white py-2 rounded-md hover:bg-blue-700"
           >
-            Login and Save Token
+            Login to Frill
           </button>
         </form>
 
